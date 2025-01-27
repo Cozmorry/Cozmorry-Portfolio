@@ -89,9 +89,13 @@
     </section>
 
     <footer>
-        <p>&copy; 2025 Morris Bundi Maina. All rights reserved.</p>
-    </footer>
+        <p>&copy; <span id="current-year"></span> Morris Bundi Maina. All rights reserved.</p>
+    </footer> 
 
     <script src="theme.js"></script> <!-- Link to the JS file -->
+    <script>
+        const currentYear = new Date().getFullYear();
+        document.getElementById('current-year').textContent = currentYear;
+    </script>
 </body>
 </html>
