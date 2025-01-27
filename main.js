@@ -1,4 +1,4 @@
-// Mobile menu functionality
+
 const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
 const mobileMenu = document.querySelector('.mobile-menu');
 const mobileMenuLinks = document.querySelectorAll('.mobile-menu a');
@@ -8,7 +8,7 @@ mobileMenuBtn.addEventListener('click', () => {
     document.body.classList.toggle('menu-open');
 });
 
-// Close mobile menu when clicking a link
+
 mobileMenuLinks.forEach(link => {
     link.addEventListener('click', () => {
         mobileMenu.classList.remove('active');
@@ -16,7 +16,7 @@ mobileMenuLinks.forEach(link => {
     });
 });
 
-// Contact form functionality
+
 const contactForm = document.getElementById('contact-form');
 
 contactForm.addEventListener('submit', async (e) => {
@@ -26,7 +26,7 @@ contactForm.addEventListener('submit', async (e) => {
     const formProps = Object.fromEntries(formData);
     
     try {
-        // Replace with your actual form submission logic
+        
         console.log('Form submitted:', formProps);
         alert('Message sent successfully!');
         contactForm.reset();
@@ -36,7 +36,7 @@ contactForm.addEventListener('submit', async (e) => {
     }
 });
 
-// Intersection Observer for animations
+
 const observerOptions = {
     threshold: 0.1,
     rootMargin: '0px 0px -50px 0px'
@@ -52,7 +52,7 @@ const observer = new IntersectionObserver((entries) => {
     });
 }, observerOptions);
 
-// Observe all animated elements
+
 document.querySelectorAll('.project-card, .skill-category, section').forEach(
     el => observer.observe(el)
 );
