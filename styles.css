@@ -40,6 +40,10 @@ footer.dark-mode {
 .container {
     width: 80%;
     margin: 0 auto;
+    display: flex; /* Use flexbox for layout */
+    flex-wrap: wrap; /* Allow cards to wrap to the next line */
+    justify-content: center; /* Center the cards */
+    padding: 20px; /* Add padding to the container */
 }
 
 /* Header Styles */
@@ -152,17 +156,19 @@ h2 {
 
 /* Project Section */
 .project-card {
-    background-color: #edf0f0;
-    padding: 20px;
-    margin-bottom: 20px;
-    border: 1px solid #bdc3c7;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    transition: all 1s ease-in-out;
+    background-color: #34495e; /* Dark card background */
+    color: #ecf0f1; /* Light text color for cards */
+    border: 1px solid #bdc3c7; /* Optional: adjust border color */
+    border-radius: 8px; /* Rounded corners */
+    padding: 20px; /* Inner padding */
+    margin: 10px; /* Space around each card */
+    max-width: 300px; /* Set a maximum width for the cards */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); /* Optional: add shadow for depth */
+    transition: transform 0.3s ease; /* Smooth transition for hover effect */
 }
 
 .project-card:hover {
-    transform: scale(1.05);
+    transform: scale(1.05); /* Slightly enlarge on hover */
 }
 
 .project-card h3 {
