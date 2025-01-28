@@ -152,13 +152,14 @@ h2 {
 
 /* Project Section */
 .project-card {
-    background-color: #ecf0f1;
+    background-color: #34495e;
     padding: 20px;
     margin-bottom: 20px;
     border: 1px solid #bdc3c7;
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     transition: all 1s ease-in-out;
+    color: #ecf0f1;
 }
 
 .project-card:hover {
