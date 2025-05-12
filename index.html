@@ -6,7 +6,11 @@
     <title>Morris Bundi's Portfolio</title>
     <link rel="stylesheet" href="styles.css"> <!-- Link to the CSS file -->
     <link rel="icon" type="image/png" href="pins.png">
+<<<<<<< HEAD
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700&display=swap" rel="stylesheet">
+=======
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+>>>>>>> 4905169a894fc326757cb0483eb3e4c142c309c5
 </head>
 <body>
     <header>
@@ -78,15 +82,24 @@
         <div class="container">
             <h2>Contact</h2>
             <p>If you'd like to get in touch, feel free to reach out to me!</p>
-            <p>Email: <a href="mailto:cozmorry@gmail.com">cozmorry@gmail.com</a></p>
-            <p>Phone: <a href="tel:+254743091839">0743091839</a></p> <!-- Added link for phone -->
+            <p>
+                <a href="mailto:cozmorry@gmail.com"><i class="fas fa-envelope"></i></a>
+                <a href="tel:+254743091839"><i class="fas fa-phone"></i></a>
+                <a href="https://www.instagram.com/one_boy_cozy" target="_blank"><i class="fab fa-instagram"></i></a>
+                <a href="https://twitter.com/Cozmorry" target="_blank"><i class="fab fa-twitter"></i></a>
+                <a href="https://cozyportfolio.netlify.app" target="_blank"><i class="fas fa-globe"></i></a>
+            </p>
         </div>
     </section>
 
     <footer>
-        <p>&copy; 2024 Morris Bundi. All rights reserved.</p>
-    </footer>
+        <p>&copy; <span id="current-year"></span> Morris Bundi Maina. All rights reserved.</p>
+    </footer> 
 
-    <script src="script.js"></script> <!-- Link to the JS file -->
+    <script src="theme.js"></script> <!-- Link to the JS file -->
+    <script>
+        const currentYear = new Date().getFullYear();
+        document.getElementById('current-year').textContent = currentYear;
+    </script>
 </body>
 </html>
