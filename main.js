@@ -79,12 +79,74 @@ document.addEventListener('DOMContentLoaded', () => {
   projectCards.forEach(card => {
     card.addEventListener('mouseenter', function() {
       this.classList.add('card-hover');
+      
+      // Start the glow animation
+      animateGlow(this);
     });
     
     card.addEventListener('mouseleave', function() {
       this.classList.remove('card-hover');
+      
+      // Reset glow animation
+      const glowElement = this.querySelector('.card-glow');
+      if (glowElement) {
+        glowElement.remove();
+      }
     });
   });
+  
+  // Function to animate the glow effect
+  function animateGlow(card) {
+    // Check if there's already a glow element
+    let glowElement = card.querySelector('.card-glow');
+    
+    if (!glowElement) {
+      // Create a glow element
+      glowElement = document.createElement('div');
+      glowElement.classList.add('card-glow');
+      
+      // Add glow styles
+      Object.assign(glowElement.style, {
+        position: 'absolute',
+        bottom: '-20px',
+        left: '10%',
+        width: '80%',
+        height: '25px',
+        borderRadius: '50%',
+        background: 'var(--accent-color)',
+        filter: 'blur(25px)',
+        opacity: '0',
+        zIndex: '-1',
+        pointerEvents: 'none'
+      });
+      
+      card.appendChild(glowElement);
+    }
+    
+    // Animate the glow
+    let opacity = 0;
+    let increasing = true;
+    const glowInterval = setInterval(() => {
+      if (!card.classList.contains('card-hover')) {
+        clearInterval(glowInterval);
+        return;
+      }
+      
+      if (increasing) {
+        opacity += 0.02;
+        if (opacity >= 0.6) {
+          increasing = false;
+        }
+      } else {
+        opacity -= 0.02;
+        if (opacity <= 0.3) {
+          increasing = true;
+        }
+      }
+      
+      glowElement.style.opacity = opacity;
+    }, 50);
+  }
   
   // Smooth scrolling for navigation links
   const navLinks = document.querySelectorAll('nav a');
