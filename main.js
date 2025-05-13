@@ -60,6 +60,63 @@ document.querySelectorAll('.project-card, .skill-category, section').forEach(
  * Animation and interactive elements for the portfolio
  */
 document.addEventListener('DOMContentLoaded', () => {
+  // Apply special glow effect to AI Face detective card
+  const applyPermanentGlow = () => {
+    const projectCards = document.querySelectorAll('.project-card');
+    projectCards.forEach(card => {
+      const heading = card.querySelector('h3');
+      if (heading && heading.textContent.includes('AI Face detective')) {
+        card.classList.add('permanent-glow');
+        
+        // Create a permanent glow element
+        const glowElement = document.createElement('div');
+        glowElement.classList.add('card-glow', 'permanent');
+        
+        // Add glow styles based on current theme
+        const currentTheme = document.documentElement.getAttribute('data-theme') || 
+                           (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+        
+        const glowColor = currentTheme === 'dark' ? 'rgba(76, 201, 240, 0.4)' : 'rgba(67, 97, 238, 0.3)';
+        
+        Object.assign(glowElement.style, {
+          position: 'absolute',
+          bottom: '-15px',
+          left: '10%',
+          width: '80%',
+          height: '25px',
+          borderRadius: '50%',
+          background: glowColor,
+          filter: 'blur(20px)',
+          opacity: '0.7',
+          zIndex: '-1',
+          pointerEvents: 'none',
+          animation: 'pulseGlow 3s infinite alternate ease-in-out'
+        });
+        
+        card.appendChild(glowElement);
+      }
+    });
+  };
+  
+  // Apply the permanent glow effect
+  applyPermanentGlow();
+  
+  // Update the glow effect when theme changes
+  const observer = new MutationObserver((mutations) => {
+    mutations.forEach((mutation) => {
+      if (mutation.attributeName === 'data-theme') {
+        // Remove existing permanent glows
+        document.querySelectorAll('.card-glow.permanent').forEach(el => el.remove());
+        
+        // Re-apply with the new theme
+        applyPermanentGlow();
+      }
+    });
+  });
+  
+  // Observe theme changes
+  observer.observe(document.documentElement, { attributes: true });
+  
   // Typing animation for header
   const headerTitle = document.querySelector('header h1');
   const headerText = document.querySelector('header p');
@@ -80,15 +137,18 @@ document.addEventListener('DOMContentLoaded', () => {
     card.addEventListener('mouseenter', function() {
       this.classList.add('card-hover');
       
-      // Start the glow animation
-      animateGlow(this);
+      // Don't add hover glow if this card already has permanent glow
+      if (!this.classList.contains('permanent-glow')) {
+        // Start the glow animation
+        animateGlow(this);
+      }
     });
     
     card.addEventListener('mouseleave', function() {
       this.classList.remove('card-hover');
       
-      // Reset glow animation
-      const glowElement = this.querySelector('.card-glow');
+      // Only remove non-permanent glows
+      const glowElement = this.querySelector('.card-glow:not(.permanent)');
       if (glowElement) {
         glowElement.remove();
       }
@@ -98,7 +158,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // Function to animate the glow effect
   function animateGlow(card) {
     // Check if there's already a glow element
-    let glowElement = card.querySelector('.card-glow');
+    let glowElement = card.querySelector('.card-glow:not(.permanent)');
     
     if (!glowElement) {
       // Create a glow element

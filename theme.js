@@ -20,9 +20,15 @@ document.addEventListener('DOMContentLoaded', () => {
   const themeToggle = document.querySelector('.theme-toggle');
   const prefersDarkScheme = window.matchMedia('(prefers-color-scheme: dark)');
   
-  // Check for saved theme preference or use system preference
+  // Apply system preference immediately before checking local storage
+  // This ensures the page initially loads with system preference
+  const systemPreference = prefersDarkScheme.matches ? 'dark' : 'light';
+  document.documentElement.setAttribute('data-theme', systemPreference);
+  
+  // Check for saved theme preference after initial render
   const savedTheme = localStorage.getItem('theme');
-  let currentTheme = savedTheme || (prefersDarkScheme.matches ? 'dark' : 'light');
+  // Only use saved theme if the user has explicitly set one
+  let currentTheme = savedTheme || systemPreference;
   
   // Apply the current theme
   document.documentElement.setAttribute('data-theme', currentTheme);
@@ -30,6 +36,7 @@ document.addEventListener('DOMContentLoaded', () => {
   
   // Handle theme toggle click
   themeToggle.addEventListener('click', () => {
+    // Once user clicks, we'll store their preference
     currentTheme = currentTheme === 'light' ? 'dark' : 'light';
     document.documentElement.setAttribute('data-theme', currentTheme);
     localStorage.setItem('theme', currentTheme);
@@ -40,10 +47,24 @@ document.addEventListener('DOMContentLoaded', () => {
     setTimeout(() => {
       document.body.classList.remove('theme-transition');
     }, 1000);
+    
+    // Add haptic feedback (vibration) for mobile devices
+    if (navigator.vibrate && isTouchDevice()) {
+      // Short vibration for 50ms
+      navigator.vibrate(50);
+    }
   });
+  
+  // Function to detect if device is touch-enabled (mobile/tablet)
+  function isTouchDevice() {
+    return (('ontouchstart' in window) ||
+            (navigator.maxTouchPoints > 0) ||
+            (navigator.msMaxTouchPoints > 0));
+  }
   
   // Handle system preference change
   prefersDarkScheme.addEventListener('change', (e) => {
+    // Only update theme based on system if user hasn't set a preference
     if (!localStorage.getItem('theme')) {
       currentTheme = e.matches ? 'dark' : 'light';
       document.documentElement.setAttribute('data-theme', currentTheme);
