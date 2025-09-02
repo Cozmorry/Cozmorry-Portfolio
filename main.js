@@ -1,214 +1,17 @@
-const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
-const mobileMenu = document.querySelector('.mobile-menu');
-const mobileMenuLinks = document.querySelectorAll('.mobile-menu a');
-
-mobileMenuBtn.addEventListener('click', () => {
-    mobileMenu.classList.toggle('active');
-    document.body.classList.toggle('menu-open');
-});
-
-
-mobileMenuLinks.forEach(link => {
-    link.addEventListener('click', () => {
-        mobileMenu.classList.remove('active');
-        document.body.classList.remove('menu-open');
-    });
-});
-
-
-const contactForm = document.getElementById('contact-form');
-
-contactForm.addEventListener('submit', async (e) => {
-    e.preventDefault();
-    
-    const formData = new FormData(contactForm);
-    const formProps = Object.fromEntries(formData);
-    
-    try {
-        
-        console.log('Form submitted:', formProps);
-        alert('Message sent successfully!');
-        contactForm.reset();
-    } catch (error) {
-        console.error('Error:', error);
-        alert('There was an error sending your message. Please try again.');
-    }
-});
-
-
-const observerOptions = {
-    threshold: 0.1,
-    rootMargin: '0px 0px -50px 0px'
-};
-
-const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-        if (entry.isIntersecting) {
-            entry.target.style.opacity = '1';
-            entry.target.style.transform = 'translateY(0)';
-            observer.unobserve(entry.target);
-        }
-    });
-}, observerOptions);
-
-
-document.querySelectorAll('.project-card, .skill-category, section').forEach(
-    el => observer.observe(el)
-);
-
 /**
- * Animation and interactive elements for the portfolio
+ * Enhanced Portfolio JavaScript with Mobile Menu and Enhanced Interactions
  */
 document.addEventListener('DOMContentLoaded', () => {
-  // Apply special glow effect to AI Face detective card
-  const applyPermanentGlow = () => {
-    const projectCards = document.querySelectorAll('.project-card');
-    projectCards.forEach(card => {
-      const heading = card.querySelector('h3');
-      if (heading && heading.textContent.includes('AI Face detective')) {
-        card.classList.add('permanent-glow');
-        
-        // Create a permanent glow element
-        const glowElement = document.createElement('div');
-        glowElement.classList.add('card-glow', 'permanent');
-        
-        // Add glow styles based on current theme
-        const currentTheme = document.documentElement.getAttribute('data-theme') || 
-                           (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
-        
-        const glowColor = currentTheme === 'dark' ? 'rgba(76, 201, 240, 0.4)' : 'rgba(67, 97, 238, 0.3)';
-        
-        Object.assign(glowElement.style, {
-          position: 'absolute',
-          bottom: '-15px',
-          left: '10%',
-          width: '80%',
-          height: '25px',
-          borderRadius: '50%',
-          background: glowColor,
-          filter: 'blur(20px)',
-          opacity: '0.7',
-          zIndex: '-1',
-          pointerEvents: 'none',
-          animation: 'pulseGlow 3s infinite alternate ease-in-out'
-        });
-        
-        card.appendChild(glowElement);
-      }
-    });
-  };
+  // Mobile Menu Toggle
+  const mobileMenuToggle = document.querySelector('.mobile-menu-toggle');
+  const navMenu = document.querySelector('nav ul');
   
-  // Apply the permanent glow effect
-  applyPermanentGlow();
-  
-  // Update the glow effect when theme changes
-  const observer = new MutationObserver((mutations) => {
-    mutations.forEach((mutation) => {
-      if (mutation.attributeName === 'data-theme') {
-        // Remove existing permanent glows
-        document.querySelectorAll('.card-glow.permanent').forEach(el => el.remove());
-        
-        // Re-apply with the new theme
-        applyPermanentGlow();
-      }
-    });
+  mobileMenuToggle.addEventListener('click', () => {
+    mobileMenuToggle.classList.toggle('active');
+    navMenu.classList.toggle('active');
   });
-  
-  // Observe theme changes
-  observer.observe(document.documentElement, { attributes: true });
-  
-  // Typing animation for header
-  const headerTitle = document.querySelector('header h1');
-  const headerText = document.querySelector('header p');
-  
-  if (headerTitle && headerText) {
-    // Add classes for animation
-    headerTitle.classList.add('animate-in');
-    
-    // Stagger the subtitle animation
-    setTimeout(() => {
-      headerText.classList.add('animate-in');
-    }, 500);
-  }
-  
-  // Project card hover effects
-  const projectCards = document.querySelectorAll('.project-card');
-  projectCards.forEach(card => {
-    card.addEventListener('mouseenter', function() {
-      this.classList.add('card-hover');
-      
-      // Don't add hover glow if this card already has permanent glow
-      if (!this.classList.contains('permanent-glow')) {
-        // Start the glow animation
-        animateGlow(this);
-      }
-    });
-    
-    card.addEventListener('mouseleave', function() {
-      this.classList.remove('card-hover');
-      
-      // Only remove non-permanent glows
-      const glowElement = this.querySelector('.card-glow:not(.permanent)');
-      if (glowElement) {
-        glowElement.remove();
-      }
-    });
-  });
-  
-  // Function to animate the glow effect
-  function animateGlow(card) {
-    // Check if there's already a glow element
-    let glowElement = card.querySelector('.card-glow:not(.permanent)');
-    
-    if (!glowElement) {
-      // Create a glow element
-      glowElement = document.createElement('div');
-      glowElement.classList.add('card-glow');
-      
-      // Add glow styles
-      Object.assign(glowElement.style, {
-        position: 'absolute',
-        bottom: '-20px',
-        left: '10%',
-        width: '80%',
-        height: '25px',
-        borderRadius: '50%',
-        background: 'var(--accent-color)',
-        filter: 'blur(25px)',
-        opacity: '0',
-        zIndex: '-1',
-        pointerEvents: 'none'
-      });
-      
-      card.appendChild(glowElement);
-    }
-    
-    // Animate the glow
-    let opacity = 0;
-    let increasing = true;
-    const glowInterval = setInterval(() => {
-      if (!card.classList.contains('card-hover')) {
-        clearInterval(glowInterval);
-        return;
-      }
-      
-      if (increasing) {
-        opacity += 0.02;
-        if (opacity >= 0.6) {
-          increasing = false;
-        }
-      } else {
-        opacity -= 0.02;
-        if (opacity <= 0.3) {
-          increasing = true;
-        }
-      }
-      
-      glowElement.style.opacity = opacity;
-    }, 50);
-  }
-  
-  // Smooth scrolling for navigation links
+
+  // Close mobile menu when clicking on a link
   const navLinks = document.querySelectorAll('nav a');
   navLinks.forEach(link => {
     link.addEventListener('click', function(e) {
@@ -218,13 +21,17 @@ document.addEventListener('DOMContentLoaded', () => {
       const targetSection = document.querySelector(targetId);
       
       if (targetSection) {
+        // Close mobile menu
+        mobileMenuToggle.classList.remove('active');
+        navMenu.classList.remove('active');
+        
         // Add active class to the clicked nav link
         navLinks.forEach(link => link.classList.remove('active'));
         this.classList.add('active');
         
         // Smooth scroll to the section
         window.scrollTo({
-          top: targetSection.offsetTop - 70, // Offset for the sticky header
+          top: targetSection.offsetTop - 80,
           behavior: 'smooth'
         });
       }
@@ -254,67 +61,265 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
   
-  // Add parallax effect to header
+  // Enhanced parallax effect for header
   document.addEventListener('mousemove', parallax);
   
   function parallax(e) {
     const header = document.querySelector('header');
     if (!header) return;
     
-    // Get the mouse position
     const x = e.clientX;
     const y = e.clientY;
-    
-    // Get header dimensions
     const headerWidth = header.offsetWidth;
     const headerHeight = header.offsetHeight;
     
-    // Calculate the percentage position
     const xPercent = (x / headerWidth) * 100;
     const yPercent = (y / headerHeight) * 100;
     
-    // Move header background slightly for parallax effect
     header.style.backgroundPosition = `${xPercent}% ${yPercent}%`;
   }
   
-  // Add a subtle tilt effect to skill tags
+  // Enhanced skill tag interactions
   const skillTags = document.querySelectorAll('.skill-tag');
-  
   skillTags.forEach(tag => {
-    tag.addEventListener('mousemove', function(e) {
-      const rect = this.getBoundingClientRect();
-      const x = e.clientX - rect.left;
-      const y = e.clientY - rect.top;
-      
-      const xPercent = (x / rect.width) - 0.5;
-      const yPercent = (y / rect.height) - 0.5;
-      
-      const rotateX = yPercent * 10; // Rotation intensity
-      const rotateY = xPercent * -10;
-      
-      this.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.05)`;
-    });
-    
-    tag.addEventListener('mouseleave', function() {
-      this.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) scale(1)';
+    tag.addEventListener('click', () => {
+      tag.style.transform = 'scale(1.1) rotate(5deg)';
+      setTimeout(() => {
+        tag.style.transform = 'scale(1) rotate(0deg)';
+      }, 300);
     });
   });
   
-  // Add subtle animations to contact links
-  const contactLinks = document.querySelectorAll('.contact-links a');
+  // Project card hover effects
+  const projectCards = document.querySelectorAll('.project-card');
+  projectCards.forEach(card => {
+    card.addEventListener('mouseenter', () => {
+      card.style.transform = 'translateY(-10px) scale(1.02)';
+    });
+    
+    card.addEventListener('mouseleave', () => {
+      card.style.transform = 'translateY(0) scale(1)';
+    });
+  });
   
+  // Dynamic Code Snippet Generation
+  const codeSnippets = [
+    'const skills = ["JavaScript", "React", "Node.js"];',
+    'function buildPortfolio() { return "Success!"; }',
+    'npm install @awesome/developer',
+    'git push origin main',
+    'console.log("Hello, World!");',
+    'const project = { name: "Portfolio", type: "Web" };',
+    'if (user === "developer") { hire(); }',
+    'async function deploy() { await build(); }',
+    'const tech = ["AI", "ML", "Web3"];',
+    'function innovate() { return "Future"; }',
+    'npm run build && npm start',
+    'const experience = "5+ years";',
+    'git commit -m "Added new features"',
+    'function solveProblem() { return "Solution"; }',
+    'const passion = "Technology";'
+  ];
+  
+  function createDynamicCodeSnippet() {
+    const header = document.querySelector('header');
+    if (!header) return;
+    
+    const snippet = document.createElement('div');
+    snippet.className = 'code-snippet';
+    snippet.textContent = codeSnippets[Math.floor(Math.random() * codeSnippets.length)];
+    
+    // Random positioning
+    snippet.style.left = Math.random() * 80 + 10 + '%';
+    snippet.style.top = Math.random() * 80 + 10 + '%';
+    snippet.style.animationDelay = Math.random() * 5 + 's';
+    snippet.style.animationDuration = (Math.random() * 20 + 20) + 's';
+    
+    header.appendChild(snippet);
+    
+    // Remove snippet after animation
+    setTimeout(() => {
+      if (snippet.parentNode) {
+        snippet.parentNode.removeChild(snippet);
+      }
+    }, 40000);
+  }
+  
+  // Create new code snippets periodically
+  setInterval(createDynamicCodeSnippet, 8000);
+  
+  // Enhanced Matrix Rain Effect
+  function createMatrixRain() {
+    const matrixRain = document.querySelector('.matrix-rain');
+    if (!matrixRain) return;
+    
+    const characters = '01アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲン';
+    
+    const columns = matrixRain.querySelectorAll('.matrix-column');
+    columns.forEach((column, index) => {
+      // Create multiple characters per column
+      for (let i = 0; i < 20; i++) {
+        const char = document.createElement('div');
+        char.textContent = characters[Math.floor(Math.random() * characters.length)];
+        char.style.position = 'absolute';
+        char.style.top = (i * 20) + 'px';
+        char.style.animationDelay = (i * 0.1) + 's';
+        char.style.animationDuration = (8 + Math.random() * 4) + 's';
+        char.style.opacity = Math.random() * 0.5 + 0.3;
+        char.style.color = `rgba(76, 201, 240, ${Math.random() * 0.4 + 0.2})`;
+        
+        column.appendChild(char);
+      }
+    });
+  }
+  
+  // Initialize matrix rain
+  createMatrixRain();
+  
+  // Scroll Progress Indicator
+  const scrollProgress = document.createElement('div');
+  scrollProgress.className = 'scroll-progress';
+  document.body.appendChild(scrollProgress);
+  
+  window.addEventListener('scroll', () => {
+    const scrollTop = document.documentElement.scrollTop;
+    const scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+    const scrollPercent = (scrollTop / scrollHeight) * 100;
+    scrollProgress.style.width = scrollPercent + '%';
+  });
+  
+  // Back to Top Button
+  const backToTop = document.createElement('a');
+  backToTop.href = '#';
+  backToTop.className = 'back-to-top';
+  backToTop.innerHTML = '<i class="fas fa-arrow-up"></i>';
+  document.body.appendChild(backToTop);
+  
+  window.addEventListener('scroll', () => {
+    if (window.pageYOffset > 300) {
+      backToTop.classList.add('visible');
+    } else {
+      backToTop.classList.remove('visible');
+    }
+  });
+  
+  backToTop.addEventListener('click', (e) => {
+    e.preventDefault();
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth'
+    });
+  });
+  
+  // Enhanced contact link animations
+  const contactLinks = document.querySelectorAll('.contact-links a');
   contactLinks.forEach((link, index) => {
-    // Add staggered animation delay
     link.style.animationDelay = `${index * 0.1}s`;
     link.classList.add('bounce-in');
-    
-    // Add hover animation
-    link.addEventListener('mouseenter', function() {
-      this.classList.add('pulse');
-    });
-    
-    link.addEventListener('mouseleave', function() {
-      this.classList.remove('pulse');
-    });
   });
+  
+  // Intersection Observer for animations
+  const observerOptions = {
+    threshold: 0.1,
+    rootMargin: '0px 0px -50px 0px'
+  };
+  
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.style.opacity = '1';
+        entry.target.style.transform = 'translateY(0)';
+      }
+    });
+  }, observerOptions);
+  
+  // Observe sections for animation
+  sections.forEach(section => {
+    section.style.opacity = '0';
+    section.style.transform = 'translateY(30px)';
+    section.style.transition = 'all 0.8s ease';
+    observer.observe(section);
+  });
+  
+  // Enhanced theme toggle with haptic feedback
+  const themeToggle = document.querySelector('.theme-toggle');
+  if (themeToggle) {
+    themeToggle.addEventListener('click', () => {
+      // Add haptic feedback for mobile devices
+      if (navigator.vibrate && isTouchDevice()) {
+        navigator.vibrate(50);
+      }
+      
+      // Add click animation
+      themeToggle.style.transform = 'scale(0.9)';
+      setTimeout(() => {
+        themeToggle.style.transform = 'scale(1)';
+      }, 150);
+    });
+  }
+  
+  // Touch device detection
+  function isTouchDevice() {
+    return (('ontouchstart' in window) ||
+            (navigator.maxTouchPoints > 0) ||
+            (navigator.msMaxTouchPoints > 0));
+  }
+  
+  // Enhanced CTA button interaction
+  const ctaButton = document.querySelector('.cta-button');
+  if (ctaButton) {
+    ctaButton.addEventListener('click', (e) => {
+      e.preventDefault();
+      
+      // Add click effect
+      ctaButton.style.transform = 'scale(0.95)';
+      setTimeout(() => {
+        ctaButton.style.transform = 'scale(1)';
+      }, 150);
+      
+      // Smooth scroll to contact section
+      const contactSection = document.querySelector('#contact');
+      if (contactSection) {
+        window.scrollTo({
+          top: contactSection.offsetTop - 80,
+          behavior: 'smooth'
+        });
+      }
+    });
+  }
+  
+  // Performance optimization: Throttle scroll events
+  let ticking = false;
+  
+  function updateOnScroll() {
+    ticking = false;
+    // Update scroll progress and back to top visibility
+    const scrollTop = document.documentElement.scrollTop;
+    const scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+    const scrollPercent = (scrollTop / scrollHeight) * 100;
+    
+    if (scrollProgress) {
+      scrollProgress.style.width = scrollPercent + '%';
+    }
+    
+    if (backToTop) {
+      if (scrollTop > 300) {
+        backToTop.classList.add('visible');
+      } else {
+        backToTop.classList.remove('visible');
+      }
+    }
+  }
+  
+  window.addEventListener('scroll', () => {
+    if (!ticking) {
+      requestAnimationFrame(updateOnScroll);
+      ticking = true;
+    }
+  });
+  
+  // Initialize animations on page load
+  setTimeout(() => {
+    document.body.classList.add('loaded');
+  }, 100);
 });
