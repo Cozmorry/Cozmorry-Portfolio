@@ -3,7 +3,6 @@ Allow: /
 
 # Sitemap location
 Sitemap: https://cozyportfolio.netlify.app/sitemap.xml
-Sitemap: https://cozyportfolio.netlify.app/image-sitemap.xml
 
 # Crawl delay (optional - helps with server load)
 Crawl-delay: 1
