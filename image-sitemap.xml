@@ -7,14 +7,12 @@
     <image:image>
       <image:loc>https://cozyportfolio.netlify.app/image.jpg</image:loc>
       <image:title>Morris Bundi - Software Engineer and Full-Stack Developer</image:title>
-      <image:caption>Professional headshot of Morris Bundi, a Software Engineer and Full-Stack Developer from Nairobi, Kenya specializing in web development, mobile applications, and AI integration</image:caption>
-      <image:license>https://cozyportfolio.netlify.app/</image:license>
+      <image:caption>Professional headshot of Morris Bundi, a Software Engineer and Full-Stack Developer from Nairobi, Kenya</image:caption>
     </image:image>
     <image:image>
       <image:loc>https://cozyportfolio.netlify.app/logo.svg</image:loc>
       <image:title>Morris Bundi Portfolio Logo</image:title>
       <image:caption>Professional logo for Morris Bundi's software engineering portfolio</image:caption>
-      <image:license>https://cozyportfolio.netlify.app/</image:license>
     </image:image>
   </url>
 
