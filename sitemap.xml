@@ -1,34 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
-        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1"
-        xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
-        http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd
-        http://www.google.com/schemas/sitemap-image/1.1
-        http://www.google.com/schemas/sitemap-image/1.1/sitemap-image.xsd">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
   <!-- Homepage - Main Portfolio -->
   <url>
     <loc>https://cozyportfolio.netlify.app/</loc>
-    <lastmod>2025-01-27T00:00:00+00:00</lastmod>
+    <lastmod>2025-01-27</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
-    <image:image>
-      <image:loc>https://cozyportfolio.netlify.app/image.jpg</image:loc>
-      <image:title>Morris Bundi (Cozmorry) - Software Engineer Portfolio</image:title>
-      <image:caption>Professional headshot of Morris Bundi, also known as Cozmorry, a Software Engineer and Full-Stack Developer from Nairobi, Kenya</image:caption>
-    </image:image>
-    <image:image>
-      <image:loc>https://cozyportfolio.netlify.app/logo.svg</image:loc>
-      <image:title>Morris Bundi Portfolio Logo</image:title>
-      <image:caption>Professional logo for Morris Bundi's software engineering portfolio</image:caption>
-    </image:image>
   </url>
 
   <!-- Blog Page -->
   <url>
     <loc>https://cozyportfolio.netlify.app/blog.html</loc>
-    <lastmod>2025-01-27T00:00:00+00:00</lastmod>
+    <lastmod>2025-01-27</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -36,39 +20,9 @@
   <!-- 404 Error Page -->
   <url>
     <loc>https://cozyportfolio.netlify.app/404.html</loc>
-    <lastmod>2025-01-27T00:00:00+00:00</lastmod>
+    <lastmod>2025-01-27</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.3</priority>
   </url>
-
-  <!-- Static Assets -->
-  <url>
-    <loc>https://cozyportfolio.netlify.app/robots.txt</loc>
-    <lastmod>2025-01-27T00:00:00+00:00</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.1</priority>
-  </url>
-
-  <!-- Future Project Pages (commented for now) -->
-  <!-- 
-  <url>
-    <loc>https://cozyportfolio.netlify.app/projects/ai-telegram-bot</loc>
-    <lastmod>2025-01-27T00:00:00+00:00</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://cozyportfolio.netlify.app/projects/amour-space</loc>
-    <lastmod>2025-01-27T00:00:00+00:00</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://cozyportfolio.netlify.app/projects/jowey-luxe</loc>
-    <lastmod>2025-01-27T00:00:00+00:00</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  -->
 
 </urlset>
